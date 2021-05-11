@@ -174,32 +174,55 @@ app.get('/API/consultaCodigo/:correo', (req, res) => {
             let numero1 = Math.random() * (99 - 10) + 10;
             let numero2 = Math.random() * (99 - 10) + 10;
             let numero3 = Math.random() * (99 - 10) + 10;
-            let respuesta = [{
-                    n1: parseInt(numero2, 10),
-                    n2: usuariosDB.numero2,
-                    n3: parseInt(Math.random() * (99 - 10) + 10, 10),
-                },
-                {
-                    n1: parseInt(numero3, 10),
-                    n2: parseInt(Math.random() * (99 - 10) + 10, 10),
-                    n3: parseInt(Math.random() * (99 - 10) + 10, 10),
-                },
-                {
-                    n1: parseInt(numero3, 10),
-                    n2: parseInt(Math.random() * (99 - 10) + 10, 10),
-                    n3: parseInt(Math.random() * (99 - 10) + 10, 10),
-                },
-                {
-                    n1: parseInt(numero3, 10),
-                    n2: parseInt(Math.random() * (99 - 10) + 10, 10),
-                    n3: usuariosDB.numero3,
-                },
-                {
-                    n1: usuariosDB.numero1,
-                    n3: parseInt(numero1, 10),
-                    n2: parseInt(Math.random() * (99 - 10) + 10, 10),
-                },
-            ];
+
+            var respuesta = [];
+            for (i = 0; i < 4; i++) {
+
+                var j = 0;
+                var datobase = parseInt(Math.random() * (3 - 0) + parseInt(0)) //va del 1 al 3
+                console.log("datobase", datobase)
+                if (j == datobase) {
+                    respuesta.push({ n1: parseInt(Math.random() * (99 - 10) + 10, 10), n2: parseInt(Math.random() * (99 - 10) + 10, 10), n3: 0 })
+                        // respuesta.n = usuariosDB.numero2;
+                } else {
+                    if (j + 1 == datobase) {
+                        respuesta.push({ n1: parseInt(Math.random() * (99 - 10) + 10, 10), n2: 0, n3: parseInt(Math.random() * (99 - 10) + 10, 10) })
+                    } else {
+                        respuesta.push({ n1: 0, n2: parseInt(Math.random() * (99 - 10) + 10, 10), n3: parseInt(Math.random() * (99 - 10) + 10, 10) })
+                    }
+                }
+
+
+
+            }
+            console.log(respuesta)
+
+            // let respuesta = [{
+            //         n1: parseInt(numero2, 10),
+            //         n2: usuariosDB.numero2,
+            //         n3: parseInt(Math.random() * (99 - 10) + 10, 10),
+            //     },
+            //     {
+            //         n1: parseInt(numero3, 10),
+            //         n2: parseInt(Math.random() * (99 - 10) + 10, 10),
+            //         n3: parseInt(Math.random() * (99 - 10) + 10, 10),
+            //     },
+            //     {
+            //         n1: parseInt(numero3, 10),
+            //         n2: parseInt(Math.random() * (99 - 10) + 10, 10),
+            //         n3: parseInt(Math.random() * (99 - 10) + 10, 10),
+            //     },
+            //     {
+            //         n1: parseInt(numero3, 10),
+            //         n2: parseInt(Math.random() * (99 - 10) + 10, 10),
+            //         n3: usuariosDB.numero3,
+            //     },
+            //     {
+            //         n1: usuariosDB.numero1,
+            //         n3: parseInt(numero1, 10),
+            //         n2: parseInt(Math.random() * (99 - 10) + 10, 10),
+            //     },
+            // ];
             res.json(respuesta);
         } else {
             res.json({
