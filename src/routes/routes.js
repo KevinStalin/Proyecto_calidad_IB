@@ -289,6 +289,61 @@ app.get('/API/con', (req, res) => {
     });
 });
 
+//Nuevoa metodos Validos con Angular 
+app.post("/API/registrar", (req, res) => {
+    let body = req.body;
+    let usuario = {
+        cedula: body.cedula,
+        nombre: body.nombre,
+        apellido: body.apellido,
+        correo: body.email,
+        nombreUsuario: body.nombreUsuario,
+        password: body.password,
+        telefono: body.telefono,
+        direccion: body.direccion,
+        fechaNacimiento: body.fecha,
+        codigoPostal: body.codigoPostal,
+        tipoSangre: body.tipoSangre,
+        sexo: body.genero,
+        oficio: body.oficio,
+        celular: body.celular,
+        etnia: body.etnia
+    };
+    let usuariob = new Usuario(usuario);
+    usuariob.save((err, usuarioDB) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err,
+            });
+        }
+        res.json({
+            mensaje: "usuario agreagado",
+        });
+    });
+});
 
+app.get('/API/verifica_correo/:correo', (req, res) => {
+    let correoUsuario = req.params.correo;
+    Usuario.findOne({ correo: correoUsuario }).exec((err, usuariosDB) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err,
+            });
+        }
+        if (usuariosDB) {
+            res.json({
+                ok: false,
+                message: "Usuario Encontradado",
+            });
+        } else {
+            res.json({
+                ok: true,
+                message: "Usuario No encontradado",
+            });
+        }
+    });
+});
 
 module.exports = app;

@@ -22,7 +22,7 @@ app.use(require('./routes/routes'));
 mongoose.connect(
     //"mongodb+srv://kevin:kevin@pruebamongodb-6oz0y.mongodb.net/MED_WEB_ATLAS?retryWrites=true&w=majority", { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true },
     // "mongodb://localhost:27017/autentificacion"
-    "mongodb+srv://kevin:kevin@pruebamongodb-6oz0y.mongodb.net/autentificacion?retryWrites=true&w=majority", { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true },
+    "mongodb://localhost:27017/autentificacion", { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true },
     (err, res) => {
         if (err) throw err;
         console.log("Base de datos Local!");

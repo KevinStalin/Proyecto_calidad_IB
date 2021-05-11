@@ -69,28 +69,18 @@ let usurarioSchema2 = new Schema({
         type: String,
         required: [true, "El sexo es requerido"],
     },
-    religion: {
-        type: String,
-        required: [true, "La religion es requerido"],
-    },
     oficio: {
         type: String,
         required: [true, "El oficio es requerido"],
     },
-    numero1: {
-        type: Number,
-        required: [false, "Numero 1 de verificacion es requerido"],
+    celular: {
+        type: String,
+        required: [true, "El tipo de celular es requerido"],
     },
-    numero2: {
-        type: Number,
-        required: [false, "Numero 2 de verificacion es requerido"],
-    },
-    numero3: {
-        type: Number,
-        required: [false, "Numero 3 de verificacion es requerido"],
-    },
-
-
+    etnia: {
+        type: String,
+        required: [true, "La etnia es requerida"],
+    }
 });
 
 module.exports = mongoose.model("Usuario", usurarioSchema2);
