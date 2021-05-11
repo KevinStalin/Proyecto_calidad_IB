@@ -118,6 +118,8 @@ app.post("/API/registro", (req, res) => {
                 sexo: body.sexo,
                 religion: body.religion,
                 oficio: body.oficio,
+                etnia: body.etnia,
+                celular: body.celular,
                 numero1: Number(primerosDos),
                 numero2: Number(segunsoDos),
                 numero3: Number(terceroDos),
@@ -160,7 +162,7 @@ app.post("/API/registro", (req, res) => {
 
 app.get('/API/consultaCodigo/:correo', (req, res) => {
     let correoU = req.params.correo;
-    // console.log(nombre);
+    // console.log(correoU);
     Usuario.findOne({ correo: correoU }).exec((err, usuariosDB) => {
         if (err) {
             return res.status(400).json({
@@ -170,7 +172,9 @@ app.get('/API/consultaCodigo/:correo', (req, res) => {
         }
         if (usuariosDB) {
             console.log(usuariosDB);
+            let numerouser = usuariosDB.numero1;
             console.log('N1-->', usuariosDB.numero1);
+            console.log("numero", numerouser);
             let numero1 = Math.random() * (99 - 10) + 10;
             let numero2 = Math.random() * (99 - 10) + 10;
             let numero3 = Math.random() * (99 - 10) + 10;
@@ -186,9 +190,9 @@ app.get('/API/consultaCodigo/:correo', (req, res) => {
                         // respuesta.n = usuariosDB.numero2;
                 } else {
                     if (j + 1 == datobase) {
-                        respuesta.push({ n1: parseInt(Math.random() * (99 - 10) + 10, 10), n2: 0, n3: parseInt(Math.random() * (99 - 10) + 10, 10) })
+                        respuesta.push({ n1: 1, n2: 0, n3: parseInt(Math.random() * (99 - 10) + 10, 10) })
                     } else {
-                        respuesta.push({ n1: 0, n2: parseInt(Math.random() * (99 - 10) + 10, 10), n3: parseInt(Math.random() * (99 - 10) + 10, 10) })
+                        respuesta.push({ n1: 0, n2: parseInt(Math.random() * (99 - 10) + 10, 10), n3: 1 })
                     }
                 }
 
