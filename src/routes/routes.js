@@ -168,70 +168,70 @@ app.get('/API/consultaCodigo/:correo', (req, res) => {
                 err,
             });
         }
-        if (usuariosDB) {
-            console.log(usuariosDB);
-            console.log('N1-->', usuariosDB.numero1);
-            let numero1 = Math.random() * (99 - 10) + 10;
-            let numero2 = Math.random() * (99 - 10) + 10;
-            let numero3 = Math.random() * (99 - 10) + 10;
+        // if (usuariosDB) {
+        console.log(usuariosDB);
+        console.log('N1-->', usuariosDB.numero1);
+        let numero1 = Math.random() * (99 - 10) + 10;
+        let numero2 = Math.random() * (99 - 10) + 10;
+        let numero3 = Math.random() * (99 - 10) + 10;
 
-            var respuesta = [];
-            for (i = 0; i < 4; i++) {
+        var respuesta = [];
+        for (i = 0; i < 4; i++) {
 
-                var j = 0;
-                var datobase = parseInt(Math.random() * (3 - 0) + parseInt(0)) //va del 1 al 3
-                console.log("datobase", datobase)
-                if (j == datobase) {
-                    respuesta.push({ n1: parseInt(Math.random() * (99 - 10) + 10, 10), n2: parseInt(Math.random() * (99 - 10) + 10, 10), n3: 0 })
-                        // respuesta.n = usuariosDB.numero2;
+            var j = 0;
+            var datobase = parseInt(Math.random() * (3 - 0) + parseInt(0)) //va del 1 al 3
+            console.log("datobase", datobase)
+            if (j == datobase) {
+                respuesta.push({ n1: parseInt(Math.random() * (99 - 10) + 10, 10), n2: parseInt(Math.random() * (99 - 10) + 10, 10), n3: 0 })
+                    // respuesta.n = usuariosDB.numero2;
+            } else {
+                if (j + 1 == datobase) {
+                    respuesta.push({ n1: parseInt(Math.random() * (99 - 10) + 10, 10), n2: 0, n3: parseInt(Math.random() * (99 - 10) + 10, 10) })
                 } else {
-                    if (j + 1 == datobase) {
-                        respuesta.push({ n1: parseInt(Math.random() * (99 - 10) + 10, 10), n2: 0, n3: parseInt(Math.random() * (99 - 10) + 10, 10) })
-                    } else {
-                        respuesta.push({ n1: 0, n2: parseInt(Math.random() * (99 - 10) + 10, 10), n3: parseInt(Math.random() * (99 - 10) + 10, 10) })
-                    }
+                    respuesta.push({ n1: 0, n2: parseInt(Math.random() * (99 - 10) + 10, 10), n3: parseInt(Math.random() * (99 - 10) + 10, 10) })
                 }
-
-
-
             }
-            console.log(respuesta)
 
-            // let respuesta = [{
-            //         n1: parseInt(numero2, 10),
-            //         n2: usuariosDB.numero2,
-            //         n3: parseInt(Math.random() * (99 - 10) + 10, 10),
-            //     },
-            //     {
-            //         n1: parseInt(numero3, 10),
-            //         n2: parseInt(Math.random() * (99 - 10) + 10, 10),
-            //         n3: parseInt(Math.random() * (99 - 10) + 10, 10),
-            //     },
-            //     {
-            //         n1: parseInt(numero3, 10),
-            //         n2: parseInt(Math.random() * (99 - 10) + 10, 10),
-            //         n3: parseInt(Math.random() * (99 - 10) + 10, 10),
-            //     },
-            //     {
-            //         n1: parseInt(numero3, 10),
-            //         n2: parseInt(Math.random() * (99 - 10) + 10, 10),
-            //         n3: usuariosDB.numero3,
-            //     },
-            //     {
-            //         n1: usuariosDB.numero1,
-            //         n3: parseInt(numero1, 10),
-            //         n2: parseInt(Math.random() * (99 - 10) + 10, 10),
-            //     },
-            // ];
-            res.json(respuesta);
-        } else {
-            res.json({
-                ok: false,
-                err: {
-                    message: "Usuario no encontradado",
-                },
-            });
+
+
         }
+        console.log(respuesta)
+
+        // let respuesta = [{
+        //         n1: parseInt(numero2, 10),
+        //         n2: usuariosDB.numero2,
+        //         n3: parseInt(Math.random() * (99 - 10) + 10, 10),
+        //     },
+        //     {
+        //         n1: parseInt(numero3, 10),
+        //         n2: parseInt(Math.random() * (99 - 10) + 10, 10),
+        //         n3: parseInt(Math.random() * (99 - 10) + 10, 10),
+        //     },
+        //     {
+        //         n1: parseInt(numero3, 10),
+        //         n2: parseInt(Math.random() * (99 - 10) + 10, 10),
+        //         n3: parseInt(Math.random() * (99 - 10) + 10, 10),
+        //     },
+        //     {
+        //         n1: parseInt(numero3, 10),
+        //         n2: parseInt(Math.random() * (99 - 10) + 10, 10),
+        //         n3: usuariosDB.numero3,
+        //     },
+        //     {
+        //         n1: usuariosDB.numero1,
+        //         n3: parseInt(numero1, 10),
+        //         n2: parseInt(Math.random() * (99 - 10) + 10, 10),
+        //     },
+        // ];
+        res.json(respuesta);
+        // } else {
+        //     res.json({
+        //         ok: false,
+        //         err: {
+        //             message: "Usuario no encontradado",
+        //         },
+        //     });
+        // }
 
     });
 });
@@ -289,61 +289,6 @@ app.get('/API/con', (req, res) => {
     });
 });
 
-//Nuevoa metodos Validos con Angular 
-app.post("/API/registrar", (req, res) => {
-    let body = req.body;
-    let usuario = {
-        cedula: body.cedula,
-        nombre: body.nombre,
-        apellido: body.apellido,
-        correo: body.email,
-        nombreUsuario: body.nombreUsuario,
-        password: body.password,
-        telefono: body.telefono,
-        direccion: body.direccion,
-        fechaNacimiento: body.fecha,
-        codigoPostal: body.codigoPostal,
-        tipoSangre: body.tipoSangre,
-        sexo: body.genero,
-        oficio: body.oficio,
-        celular: body.celular,
-        etnia: body.etnia
-    };
-    let usuariob = new Usuario(usuario);
-    usuariob.save((err, usuarioDB) => {
-        if (err) {
-            return res.status(400).json({
-                ok: false,
-                err,
-            });
-        }
-        res.json({
-            mensaje: "usuario agreagado",
-        });
-    });
-});
 
-app.get('/API/verifica_correo/:correo', (req, res) => {
-    let correoUsuario = req.params.correo;
-    Usuario.findOne({ correo: correoUsuario }).exec((err, usuariosDB) => {
-        if (err) {
-            return res.status(400).json({
-                ok: false,
-                err,
-            });
-        }
-        if (usuariosDB) {
-            res.json({
-                ok: false,
-                message: "Usuario Encontradado",
-            });
-        } else {
-            res.json({
-                ok: true,
-                message: "Usuario No encontradado",
-            });
-        }
-    });
-});
 
 module.exports = app;
