@@ -87,8 +87,39 @@ let getCode = async(word) => {
     // app.get('/', (req, res) => {
     //     res.send({ listo: "Completado" });
     // });
-
-
+app.post("/API/login", (req, res) => {
+    let body = req.body
+    let pass = body.password;
+    let email = body.email
+    console.log(body)
+    console.log(pass, email)
+    Usuario.findOne({ correo: email, password: pass }).exec((err, usuariosDB) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err,
+            });
+        }
+        if (usuariosDB) {
+            // console.log(usuariosDB)
+            // console.log(usuariosDB.password, pass, usuariosDB.correo, email)
+            // if (usuariosDB.password == pass && usuariosDB.correo == email) {
+            //     console.log("correcto!!")
+            // } else {
+            //     console.log("incorrecto")
+            // }
+            res.json({
+                ok: true,
+                message: 'Usiario Validado'
+            });
+        } else {
+            res.json({
+                ok: false,
+                message: 'Usiario NO Validado'
+            });
+        }
+    });
+});
 // app.post("/API/registro", (req, res) => {
 //     let body = req.body;
 //     let word = body.nombre + body.apellido;
@@ -331,18 +362,19 @@ app.get('/API/consultaCodigo/:correo', (req, res) => {
             // ];
             res.json(respuesta);
         } else {
-            res.json({
-                ok: false,
-                err: {
-                    message: "Usuario no encontradado",
-                },
-            });
+            res.redirect("/login")
+                // res.json({
+                //     ok: false,
+                //     err: {
+                //         message: "Usuario no encontradado",
+                //     },
+                // });
         }
 
     });
 });
 
-app.post('/API/login', (req, res) => {
+app.post('/API/logind', (req, res) => {
     let body = req.body;
     let login = {
         correo: body.correo,
