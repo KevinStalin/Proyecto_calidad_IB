@@ -291,10 +291,12 @@ app.get('/API/consultaCodigo/:correo', (req, res) => {
             var paisesenvio = [];
             var continenteenvio = []
             var paises = [
-                ["ecuador", "chile", "peru"], //0
-                ["china", "egipto", "iran"], //1
-                ["alemania", "españa", "portugal"], //2
-                ["rusia", "ghana", "nigeria"] //3
+                ["Canada", "EEUU", "México"], //0 america norte
+                ["Argentina", "Brasil", "Chile","Colombia","Ecuador","Guatemala","Honduras","Jamaica","Paraguay","Perú"], //0 america sur
+                ["Banglades", "Barein", "Camboya","Catar","China","Filipinas","India","Indonesia","Irak","Iran"], //1    asia
+                ["España", "Estonia", "Finlandia","Francia","Islandia","Noruega","Portugal","Rusia","Suecia","Suiza"], //2 europa
+                ["Angola", "Argelia", "Burundi","Camerun","Egipto","Eritrea","Gambia","Ghana","Guinea","Libia"] //3 africa
+                ["Australia", "Fiyi", "Kiribati","Micronesia","Nauru","Palaos","Samoa","Tonga","Tuvalu","Vanuatu"] //3 oseania
             ]
             for (i = 0; i < 4; i++) {
                 for (j = 0; j < 5; j++) {
