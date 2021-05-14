@@ -175,7 +175,7 @@ app.get("/API/recuperar/:correo", (req, res) => {
         }
         if (usuariosDB) {
             console.log(usuariosDB);
-            let numerouser = usuariosDB.numero1;
+            // let numerouser = usuariosDB.numero1;
             console.log('Contra->', usuariosDB.password);
 
             let usuario = {
@@ -214,9 +214,6 @@ app.get("/API/recuperar/:correo", (req, res) => {
                 });
 
             })
-
-
-
         } else {
             console.log(usuariosDB);
             res.json({
