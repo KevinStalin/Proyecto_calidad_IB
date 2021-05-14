@@ -178,42 +178,42 @@ app.get("/API/recuperar/:correo", (req, res) => {
             let numerouser = usuariosDB.numero1;
             console.log('Contra->', usuariosDB.password);
 
-            let usuario = {
-                correo: usuariosDB.correo,
-                password: usuariosDB.password
-            };
-            let usuariob = new Usuario(usuario);
-            console.log("--------", usuario);
+            // let usuario = {
+            //     correo: usuariosDB.correo,
+            //     password: usuariosDB.password
+            // };
+            // let usuariob = new Usuario(usuario);
+            // console.log("--------", usuario);
             let mensaje = '';
-            mensaje += 'Su contraseña para autentificarse en el sitema es'
-            mensaje += ' 1234';
+            mensaje += 'Su contraseña para autentificarse en el sitema WG es:'
+            mensaje += ' ' + '"' + usuariosDB.password + '"';
             let mailOptions = {
                 from: 'akmnj2021@gmail.com',
-                to: 'danigarck@hotmail.com',
+                to: usuariosDB.correo,
                 subject: 'Codigo Autentificacion',
                 text: mensaje
             };
-
-            usuariob.save((err, usuarioDB) => {
-                if (err) {
-                    return res.status(400).json({
-                        ok: false,
-                        err,
-                    });
+            transporter.sendMail(mailOptions, function(error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email enviado: ' + info.response);
                 }
-                transporter.sendMail(mailOptions, function(error, info) {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log('Email enviado: ' + info.response);
-                    }
-                });
-                res.json({
-                    mensaje: "usuario agreagado",
-                    codigo: "1234"
-                });
+            });
+            // usuariob.save((err, usuarioDB) => {
+            //     if (err) {
+            //         return res.status(400).json({
+            //             ok: false,
+            //             err,
+            //         });
+            //     }
 
-            })
+            //     res.json({
+            //         mensaje: "usuario agreagado",
+            //         codigo: "1234"
+            //     });
+
+            // })
 
 
 
