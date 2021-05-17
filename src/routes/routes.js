@@ -178,42 +178,45 @@ app.get("/API/recuperar/:correo", (req, res) => {
             // let numerouser = usuariosDB.numero1;
             console.log('Contra->', usuariosDB.password);
 
-            let usuario = {
-                correo: usuariosDB.correo,
-                password: usuariosDB.password
-            };
-            let usuariob = new Usuario(usuario);
-            console.log("--------", usuario);
+            // let usuario = {
+            //     correo: usuariosDB.correo,
+            //     password: usuariosDB.password
+            // };
+            // let usuariob = new Usuario(usuario);
+            // console.log("--------", usuario);
             let mensaje = '';
-            mensaje += 'Su contraseña para autentificarse en el sitema es'
-            mensaje += ' 1234';
+            mensaje += 'Su contraseña para autentificarse en el sitema WG es:'
+            mensaje += ' ' + '"' + usuariosDB.password + '"';
             let mailOptions = {
                 from: 'akmnj2021@gmail.com',
-                to: 'danigarck@hotmail.com',
+                to: usuariosDB.correo,
                 subject: 'Codigo Autentificacion',
                 text: mensaje
             };
-
-            usuariob.save((err, usuarioDB) => {
-                if (err) {
-                    return res.status(400).json({
-                        ok: false,
-                        err,
-                    });
+            transporter.sendMail(mailOptions, function(error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email enviado: ' + info.response);
                 }
-                transporter.sendMail(mailOptions, function(error, info) {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log('Email enviado: ' + info.response);
-                    }
-                });
-                res.json({
-                    mensaje: "usuario agreagado",
-                    codigo: "1234"
-                });
+            });
+            // usuariob.save((err, usuarioDB) => {
+            //     if (err) {
+            //         return res.status(400).json({
+            //             ok: false,
+            //             err,
+            //         });
+            //     }
 
-            })
+            //     res.json({
+            //         mensaje: "usuario agreagado",
+            //         codigo: "1234"
+            //     });
+
+            // })
+
+
+
         } else {
             console.log(usuariosDB);
             res.json({
@@ -423,6 +426,7 @@ app.post("/API/registrar", (req, res) => {
             });
         }
         res.json({
+            ok: true,
             mensaje: "usuario agreagado",
         });
     });
@@ -446,6 +450,50 @@ app.get('/API/verifica_correo/:correo', (req, res) => {
             res.json({
                 ok: true,
                 message: "Usuario No encontradado",
+            });
+        }
+    });
+});
+app.get('/API/verifica_cedula/:cedula', (req, res) => {
+    let cedulaUsuario = req.params.cedula;
+    Usuario.findOne({ cedula: cedulaUsuario }).exec((err, usuariosDB) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err,
+            });
+        }
+        if (usuariosDB) {
+            res.json({
+                ok: false,
+                message: "Cedula Encontradado",
+            });
+        } else {
+            res.json({
+                ok: true,
+                message: "Cedula No encontradado",
+            });
+        }
+    });
+});
+app.get('/API/verifica_nick/:nombre', (req, res) => {
+    let nombreUsuarioA = req.params.nombre;
+    Usuario.findOne({ nombreUsuario: nombreUsuarioA }).exec((err, usuariosDB) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err,
+            });
+        }
+        if (usuariosDB) {
+            res.json({
+                ok: false,
+                message: "Cedula Encontradado",
+            });
+        } else {
+            res.json({
+                ok: true,
+                message: "Cedula No encontradado",
             });
         }
     });
