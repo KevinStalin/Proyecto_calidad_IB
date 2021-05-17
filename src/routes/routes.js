@@ -286,22 +286,45 @@ app.get('/API/consultaCodigo/:correo', (req, res) => {
             let numero1 = Math.random() * (99 - 10) + 10;
             let numero2 = Math.random() * (99 - 10) + 10;
             let numero3 = Math.random() * (99 - 10) + 10;
+            var a = [0, 1, 2, 3, 4, 5]
+            var aux = 0
 
             var respuesta = [];
             var paisesenvio = [];
             var continenteenvio = []
             var paises = [
-                ["Canada", "EEUU", "México"], //0 america norte
-                ["Argentina", "Brasil", "Chile","Colombia","Ecuador","Guatemala","Honduras","Jamaica","Paraguay","Perú"], //0 america sur
-                ["Banglades", "Barein", "Camboya","Catar","China","Filipinas","India","Indonesia","Irak","Iran"], //1    asia
-                ["España", "Estonia", "Finlandia","Francia","Islandia","Noruega","Portugal","Rusia","Suecia","Suiza"], //2 europa
-                ["Angola", "Argelia", "Burundi","Camerun","Egipto","Eritrea","Gambia","Ghana","Guinea","Libia"] //3 africa
-                ["Australia", "Fiyi", "Kiribati","Micronesia","Nauru","Palaos","Samoa","Tonga","Tuvalu","Vanuatu"] //3 oseania
+                ["Canada", "EEUU", "México", "Canada", "EEUU", "México", "Canada", "EEUU", "México", "EEUU"], //0 -america norte
+                ["Argentina", "Brasil", "Chile", "Colombia", "Ecuador", "Guatemala", "Honduras", "Jamaica", "Paraguay", "Perú"], //-1 america sur
+                ["Banglades", "Barein", "Camboya", "Catar", "China", "Filipinas", "India", "Indonesia", "Irak", "Iran"], //-2    asia
+                ["España", "Estonia", "Finlandia", "Francia", "Islandia", "Noruega", "Portugal", "Rusia", "Suecia", "Suiza"], //-3 europa
+                ["Angola", "Argelia", "Burundi", "Camerun", "Egipto", "Eritrea", "Gambia", "Ghana", "Guinea", "Libia"], //-4 africa
+                ["Australia", "Fiyi", "Kiribati", "Micronesia", "Nauru", "Palaos", "Samoa", "Tonga", "Tuvalu", "Vanuatu"] //-5 oceania
             ]
             for (i = 0; i < 4; i++) {
                 for (j = 0; j < 5; j++) {
-                    var continente = parseInt(Math.random() * (4 - 0) + parseInt(0)) // para la region filas
-                    var pais = parseInt(Math.random() * (3 - 0) + parseInt(0)) // para el pais colum
+                    var continente = parseInt(Math.random() * (6 - 0) + parseInt(0)) // para la region filas
+                    var pais = parseInt(Math.random() * (10 - 0) + parseInt(0)) // para el pais colum
+                    for (s = 0; s < 6; s++) {
+                        if (continente == a[s]) {
+                            a[continente] = 10
+                            aux = 0
+                        } else {
+                            if (aux != 0)
+                                aux = 1
+                        }
+                        console.log("pppppp====== ", a[s], continente)
+
+                    }
+                    if (aux == 1) {
+                        for (ss = 0; ss < 6; ss++) {
+                            if (a[ss] != 10 && aux == 1) {
+                                a[continente] = 10
+                                aux = 0
+
+                            }
+                            console.log("pppppprrr====== ", a[ss], continente)
+                        }
+                    }
                     paisesenvio.push(paises[continente][pais]);
                     continenteenvio.push(continente)
                         //console.log("=<", paisesenvio[j]);
