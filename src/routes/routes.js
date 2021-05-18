@@ -198,8 +198,8 @@ app.post("/API/login", (req, res) => {
 
 app.get("/API/recuperar/:correo", (req, res) => {
     let correoU = req.params.correo;
-    console.log("correou==", correoU.email)
-        // let codigoUnico = codigoFinal(word);
+    // console.log("correou==", correoU.email)
+    // let codigoUnico = codigoFinal(word);
     Usuario.findOne({ correo: correoU }).exec((err, usuariosDB) => {
         if (err) {
             return res.status(400).json({
@@ -212,12 +212,6 @@ app.get("/API/recuperar/:correo", (req, res) => {
             // let numerouser = usuariosDB.numero1;
             console.log('Contra->', usuariosDB.password);
 
-            // let usuario = {
-            //     correo: usuariosDB.correo,
-            //     password: usuariosDB.password
-            // };
-            // let usuariob = new Usuario(usuario);
-            // console.log("--------", usuario);
             let mensaje = '';
             mensaje += 'Su contraseña para autentificarse en el sitema WG es:'
             mensaje += ' ' + '"' + usuariosDB.password + '"';
@@ -229,35 +223,26 @@ app.get("/API/recuperar/:correo", (req, res) => {
             };
             transporter.sendMail(mailOptions, function(error, info) {
                 if (error) {
+                    res.json({
+                        ok: false,
+                        err: {
+                            message: "Error al enviar correo",
+                        },
+                    })
                     console.log(error);
                 } else {
+                    res.json({
+                        ok: true,
+                        message: 'Se ha enviado\n Revise su direccion de correo electronico'
+                    })
                     console.log('Email enviado: ' + info.response);
                 }
             });
-            // usuariob.save((err, usuarioDB) => {
-            //     if (err) {
-            //         return res.status(400).json({
-            //             ok: false,
-            //             err,
-            //         });
-            //     }
-
-            //     res.json({
-            //         mensaje: "usuario agreagado",
-            //         codigo: "1234"
-            //     });
-
-            // })
-
-
-
         } else {
             console.log(usuariosDB);
             res.json({
                 ok: false,
-                err: {
-                    message: "Usuario no ",
-                },
+                message: "No se pudo enviar el correo",
             });
         }
 
@@ -277,7 +262,7 @@ app.post('/API/region', (req, res) => {
         region: body.region
 
     };
-    let regiones = new Regitro(regionu);
+    let regiones = new Region(regionu);
     regiones.save((err, usuarioDB) => {
         if (err) {
             return res.status(400).json({
@@ -286,6 +271,7 @@ app.post('/API/region', (req, res) => {
             });
         }
         res.json({
+            ok: true,
             mensaje: "region agreagada",
         });
     });
@@ -295,7 +281,7 @@ app.post('/API/region', (req, res) => {
 app.get('/API/consultaCodigo/:correo', (req, res) => {
     let correoU = req.params.correo;
     // console.log(correoU);
-    Region.findOne({ correo: correoU }).exec((err, usuariosDB) => {
+    Region.findOne({ email: correoU }).exec((err, usuariosDB) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
@@ -306,7 +292,7 @@ app.get('/API/consultaCodigo/:correo', (req, res) => {
             console.log(usuariosDB);
             // let numerouser = usuariosDB.numero1;
             // console.log('N1-->', usuariosDB.numero1);
-            console.log("numero", numerouser);
+            // console.log("numero", numerouser);
             let numero1 = Math.random() * (99 - 10) + 10;
             let numero2 = Math.random() * (99 - 10) + 10;
             let numero3 = Math.random() * (99 - 10) + 10;
@@ -354,7 +340,7 @@ app.get('/API/consultaCodigo/:correo', (req, res) => {
                         //console.log("=<", paisesenvio[j]);
                 }
                 console.log(continenteenvio[j - 1], continenteenvio[j - 2], continenteenvio[j - 3], continenteenvio[j - 4], continenteenvio[j - 5]);
-                respuesta.push({ p1: { n1: paisesenvio[j - 1], c1: continenteenvio[j - 1] }, p2: { n1: paisesenvio[j - 2], c1: continenteenvio[j - 2] }, p3: { n1: paisesenvio[j - 3], c1: continenteenvio[j - 3] }, p4: { n1: paisesenvio[j - 4], c1: continenteenvio[j - 4] }, p5: { n1: paisesenvio[j - 5], c1: continenteenvio[j - 5] }, cu: { cus: usuariosDB.fechaNacimiento } })
+                respuesta.push({ p1: { n1: paisesenvio[j - 1], c1: continenteenvio[j - 1] }, p2: { n1: paisesenvio[j - 2], c1: continenteenvio[j - 2] }, p3: { n1: paisesenvio[j - 3], c1: continenteenvio[j - 3] }, p4: { n1: paisesenvio[j - 4], c1: continenteenvio[j - 4] }, p5: { n1: paisesenvio[j - 5], c1: continenteenvio[j - 5] }, cu: { cus: usuariosDB.region } })
                     //respuesta.push({ c1: continenteenvio[j - 1], c2: continenteenvio[j - 2], c3: continenteenvio[j - 3], c4: continenteenvio[j - 4], c5: continenteenvio[j - 5] })
                 var paisesenvio = []
                 var continenteenvio = []
