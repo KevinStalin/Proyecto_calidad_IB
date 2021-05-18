@@ -1,7 +1,10 @@
 const express = require('express');
 // const bcrypt = require('bcrypt');
 const Usuario = require('../model/usuario');
-//correo
+const Region = require('../model/region');
+
+
+//correo 
 const nodemailer = require('nodemailer');
 //
 const app = express();
@@ -267,11 +270,32 @@ app.get("/API/recuperar/:correo", (req, res) => {
 
 
 });
+app.post('/API/region', (req, res) => {
+    let body = req.body;
+    let regionu = {
+        email: body.email,
+        region: body.region
+
+    };
+    let regiones = new Regitro(regionu);
+    regiones.save((err, usuarioDB) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err,
+            });
+        }
+        res.json({
+            mensaje: "region agreagada",
+        });
+    });
+});
+
 
 app.get('/API/consultaCodigo/:correo', (req, res) => {
     let correoU = req.params.correo;
     // console.log(correoU);
-    Usuario.findOne({ correo: correoU }).exec((err, usuariosDB) => {
+    Region.findOne({ correo: correoU }).exec((err, usuariosDB) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
@@ -280,8 +304,8 @@ app.get('/API/consultaCodigo/:correo', (req, res) => {
         }
         if (usuariosDB) {
             console.log(usuariosDB);
-            let numerouser = usuariosDB.numero1;
-            console.log('N1-->', usuariosDB.numero1);
+            // let numerouser = usuariosDB.numero1;
+            // console.log('N1-->', usuariosDB.numero1);
             console.log("numero", numerouser);
             let numero1 = Math.random() * (99 - 10) + 10;
             let numero2 = Math.random() * (99 - 10) + 10;
@@ -355,9 +379,9 @@ app.get('/API/consultaCodigo/:correo', (req, res) => {
             //     }
             // }
 
-            // respuesta.push({ cu: usuariosDB.fechaNacimiento })
+            respuesta.push({ cu: usuariosDB.region })
             console.log(respuesta)
-            console.log("aqui breoo", usuariosDB.fechaNacimiento)
+            console.log(usuariosDB.fechaNacimiento)
 
             // let respuesta = [{
             //         n1: parseInt(numero2, 10),
